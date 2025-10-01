@@ -1,314 +1,294 @@
 :root {
-  /* Ocean Professional Design Tokens (from styleThemeData) + Figma DS mapping */
-  --primary: #2563EB;         /* Ocean primary */
-  --primary-strong: #0047ff;  /* DS accent for focus/win borders */
-  --secondary: #F59E0B;       /* Ocean amber (also used as success/accent) */
-  --error: #EF4444;
-
-  --bg: #f9fafb;              /* Ocean background */
-  --surface: #ffffff;
-  --text: #111827;            /* Ocean text */
+  /* Ocean Professional Design Tokens mapped from DS */
+  --primary: #2563EB;
+  --primary-strong: #0047ff; /* DS color_0047ff */
+  --amber: #F59E0B;
+  --text: #111827;
   --text-muted: rgba(17,24,39,0.6);
+  --ink-strong: #141414; /* typo_20 color */
+  --ink-body: #1f1f1f;   /* typo_21 color */
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --tile: #f5f5f5; /* style_7 */
+  --divider: #e6e6e6; /* style_23 */
+  --accent-surface: #d8e3ff; /* style_24 background */
+  --border-subtle: #e5e5e5;
 
-  /* Shadows aligned to DS (#000e33 baseline) */
-  --shadow-soft: 0 1px 2px rgba(0, 14, 51, 0.18);   /* shadow_0 flavor */
-  --shadow-md: 0 4px 12px rgba(0, 14, 51, 0.08);
-  --shadow-strong: 0 8px 24px rgba(0, 14, 51, 0.12);
+  /* Radii from DS */
+  --r-4: 4px;      /* style_9/26 */
+  --r-6: 6px;      /* style_11/18/22 */
+  --r-16: 16px;    /* style_79/75 */
+  --r-80: 80px;
 
-  /* Border */
-  --border: rgba(17,24,39,0.08);
-
-  /* Radii */
-  --radius-sm: 6px;   /* matches DS small */
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* Shadows (#000e33 baseline) */
+  --shadow-0: 0 1px 2px rgba(0,14,51,0.18); /* shadow_0 approximation for surface cards */
+  --shadow-1: 0 1px 1px rgba(0,14,51,0.18); /* fine for small elements */
 
   /* Motion */
-  --transition-fast: 150ms ease;
-  --transition: 250ms cubic-bezier(.2,.8,.2,1);
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --fast: 150ms var(--ease);
+  --base: 250ms var(--ease);
 
-  /* Grid */
-  --grid-gap: 12px;
-  --cell-size: 110px;
-
-  /* Background flourish (Ocean subtle gradient) */
-  --gradient: linear-gradient(180deg, rgba(37,99,235,0.10), rgba(249,250,251,1));
+  /* Calendar measurements (derived from Figma) */
+  --panel-w: 426px;   /* each calendar frame */
+  --panel-h: 444px;
+  --inner-w: 378px;   /* content area width */
+  --row-h: 44px;      /* header row, DoW row, day row */
+  --dow-radius: 4px;  /* style_9 */
+  --day-radius: 6px;  /* style_11/82 */
+  --header-btn: 44px;
 }
 
-/* Base Reset */
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; }
-
 body {
   margin: 0;
   font-family: "Lexend", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
-  background-image: var(--gradient);
-  background-attachment: fixed;
 }
 
-/* App layout */
-.app {
+/* Screen background tint from style_0 */
+.screen {
   min-height: 100dvh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  /* Optional: allow figma screen background token to tint the page if provided */
   background-color: var(--screen-bg, transparent);
-}
-
-.app-header {
-  padding: 24px 20px 8px;
-  text-align: center;
-}
-
-.title {
-  margin: 0;
-  font-size: 28px;            /* DS typo_0 size 24 used in components; header 28 for app title */
-  font-weight: 700;
-  line-height: 1;             /* DS typo_0 line_height equals size */
-  letter-spacing: -0.24px;    /* DS typo_0 */
-  color: var(--primary);
-}
-
-.subtitle {
-  margin: 6px 0 0;
-  font-size: 14px;            /* DS typo_2 */
-  line-height: 14px;
-  letter-spacing: 0.14px;
-  color: var(--text-muted);
-}
-
-.main {
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: 24px;
 }
 
-/* Card */
-.board-card {
-  width: 100%;
-  max-width: 440px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);  /* DS style_75/79 use 16px container radius */
-  box-shadow: var(--shadow-md);
-  padding: 20px 20px 16px;
-  transition: box-shadow var(--transition), transform var(--transition-fast);
+/* Canvas centers the double card */
+.canvas {
+  position: relative;
+  width: 1200px;
+  max-width: 100%;
+  min-height: 800px;
+  display: grid;
+  place-items: center;
 }
 
-.board-card:hover {
-  box-shadow: var(--shadow-strong);
-  transform: translateY(-1px);
+/* Double-view container: style_79 card backing (f5f5f5, r=16, shadow_0) */
+.double-view-card {
+  display: grid;
+  grid-template-columns: var(--panel-w) 1px var(--panel-w);
+  align-items: stretch;
+  width: 853px;   /* exact per Figma */
+  height: 444px;  /* exact per Figma */
+  background: var(--tile);
+  border-radius: var(--r-16);
+  box-shadow: var(--shadow-0);
+  overflow: hidden; /* clip child rounding */
 }
 
-/* Status and Scores */
-.status-bar {
-  display: flex;
+/* Panel containers (style_7 -> tile background) */
+.calendar-panel {
+  width: var(--panel-w);
+  height: var(--panel-h);
+  display: grid;
+  place-items: center;
+  background: var(--tile);
+}
+
+/* Content width equals 378px centered inside the panel per Figma */
+.calendar-inner {
+  width: var(--inner-w);
+  display: grid;
+  grid-template-rows: var(--row-h) var(--row-h) 1fr; /* header, dow, weeks */
+  gap: 0;
+}
+
+/* Header (exact 44px high) */
+.calendar-header {
+  height: var(--row-h);
+  display: grid;
+  grid-template-columns: var(--header-btn) 1fr var(--header-btn);
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
 }
 
-.status {
-  display: flex;
+/* Prev/Next 44x44 circle-ish buttons from style_80 (white, r=80, shadow_1) */
+.nav-btn {
+  width: var(--header-btn);
+  height: var(--header-btn);
+  border: none;
+  background: #ffffff;
+  border-radius: var(--r-80);
+  box-shadow: var(--shadow-1);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform var(--fast);
+}
+.nav-btn:hover { transform: translateY(-1px); }
+.nav-btn:active { transform: translateY(0); }
+.calendar-header .spacer { width: var(--header-btn); height: var(--header-btn); }
+
+/* Month + Year block: each select group uses style_81 (white, r=6, shadow_1) */
+.month-year {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
   align-items: center;
   gap: 8px;
 }
-
-.status .label {
-  font-size: 14px;
-  line-height: 14px;
-  letter-spacing: 0.14px;
-  color: var(--text-muted);
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 36px;
-  height: 28px;
-  padding: 0 10px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;      /* DS typo_1 size 18 in calendar header; pill uses smaller 14 here */
-  letter-spacing: 0.2px;
-  box-shadow: var(--shadow-soft);
-  transition: background-color var(--transition), color var(--transition), transform var(--transition-fast);
-}
-
-.pill-primary {
-  background: color-mix(in srgb, var(--primary) 12%, transparent);
-  color: var(--primary);
-}
-
-.scores {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: color-mix(in srgb, var(--primary) 6%, transparent);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 6px 10px;
-}
-
-.score {
-  display: inline-grid;
-  grid-auto-flow: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.score .label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.score-value {
-  font-weight: 700;
-  color: var(--text);
-}
-
-.divider {
-  width: 1px;
-  height: 18px;
-  background: var(--border);
-}
-
-/* Board */
-.board {
-  display: grid;
-  grid-template-columns: repeat(3, var(--cell-size));
-  grid-template-rows: repeat(3, var(--cell-size));
-  gap: var(--grid-gap);
-  align-items: center;
-  justify-content: center;
-  margin: 8px auto 16px;
-}
-
-.cell {
-  position: relative;
-  width: var(--cell-size);
-  height: var(--cell-size);
-  border-radius: 14px;                           /* calendar day radius ~6; tic-tac-toe uses 14 for softer look */
-  border: 1px solid var(--border);
+.select-btn {
+  height: var(--row-h);
+  min-width: 86px;
+  padding: 0 12px;
+  border: none;
   background: #ffffff;
-  box-shadow: var(--shadow-soft);
+  border-radius: var(--r-6);
+  box-shadow: var(--shadow-1);
+  display: grid;
+  grid-template-columns: 1fr 8px;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.select-btn .text {
+  font-size: 24px;         /* typo_20 */
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+  color: var(--ink-strong);
+}
+.select-btn .chev { justify-self: end; }
+
+/* Divider between panels from style_23 */
+.divider-vert {
+  width: 1px;
+  background: var(--divider);
+}
+
+/* DOW Row: style_9 rounded wrappers but visually only text alignment */
+.dow-row {
+  height: var(--row-h);
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+.dow {
+  justify-self: center;
+  font-size: 18px; /* typo_21 */
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--ink-body);
+}
+
+/* Weeks area: 5-6 rows at 44px each with 7 columns */
+.weeks {
+  display: grid;
+  grid-auto-rows: var(--row-h);
+  gap: 0;
+}
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+
+/* Day cell styles:
+   - Regular: style_82 (white, 0.5px border #e5e5e5, r=6, shadow_1)
+   - Disabled: style_11 rounding + muted blue text (typo_22)
+   - Today Selected: style_14 (bg #0047ff, border 2px #fff, r=6), text typo_18 (#fff)
+   - Hover (right panel 20th): style_83 (bg #d8e3ff, border 1px #0047ff, r=6)
+*/
+.day {
+  position: relative;
+  height: var(--row-h);
+  margin: 0 2px; /* creates the subtle 378px content feel with small inner spacing */
+  border: 0.5px solid var(--border-subtle);
+  background: #ffffff;
+  border-radius: var(--r-6);
+  box-shadow: var(--shadow-1);
   display: grid;
   place-items: center;
-  font-size: 48px;                               /* DS typo_8 is 48/700 for big numerals */
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.48px;                       /* align to typo_8 */
-  color: var(--text);
   cursor: pointer;
-  overflow: hidden;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+  transition: background-color var(--base), border-color var(--base), transform var(--fast), box-shadow var(--fast), color var(--base);
+}
+.day span {
+  font-size: 18px; /* typo_21 */
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--ink-body);
 }
 
-.cell:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
-}
-
-.cell:active {
-  transform: translateY(0);
-}
-
-.cell:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
-  border-color: var(--primary);
-}
-
-/* Winner state (subtle selection akin to DS style_24/86) */
-.cell.win {
-  background: rgba(216, 227, 255, 0.6); /* DS color_d8e3ff softened */
+/* Hover state (generic interaction + the one in right panel 20) */
+.day:hover,
+.day.hovered {
+  background: var(--accent-surface);
   border-color: var(--primary-strong);
 }
+.day.hovered span { color: var(--primary-strong); }
 
-/* Ripple effect element (created in JS) */
-.cell .ripple {
+/* Today selected (left 7) style_14 */
+.day.today {
+  background: var(--primary-strong);
+  border: 2px solid #ffffff;
+}
+.day.today span {
+  color: #ffffff; /* typo_18 */
+  font-weight: 500;
+}
+
+/* Disabled (days of prev/next month shown grey-blue per typo_22) */
+.day.disabled {
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+  opacity: 1;
+  cursor: default;
+}
+.day.disabled span {
+  color: #001754; /* typo_22 color */
+}
+
+/* Focus visible ring */
+.day:focus-visible,
+.select-btn:focus-visible,
+.nav-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-strong) 25%, transparent);
+}
+
+/* Decorative hand overlay: style_25 ellipse bg image and inner hand vector */
+.hand-overlay {
   position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  animation: ripple 450ms ease-out;
-  background: color-mix(in srgb, var(--primary) 15%, transparent);
+  /* Based on Figma: x=2423,y=-3537 relative to screen's frame; we anchor visually near card center-right */
+  right: 150px;
+  bottom: 110px;
+  width: 72px;
+  height: 72px;
   pointer-events: none;
 }
-
-@keyframes ripple {
-  to { transform: scale(2.8); opacity: 0; }
+.hand-overlay .hand-bg {
+  display: block;
+  width: 72px;
+  height: 72px;
+  opacity: 0.5; /* style_25 opacity */
+}
+.hand-overlay .hand-icon {
+  position: absolute;
+  left: 28px;  /* approximate center within 72 circle, per asset dims 16x20 */
+  top: 26px;
+  width: 16px;
+  height: 20px;
 }
 
-/* Controls */
-.controls {
-  display: grid;
-  place-items: center;
-}
-
-.btn {
-  appearance: none;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 14px;
-  letter-spacing: 0.14px;
-  cursor: pointer;
-  transition: background-color var(--transition), box-shadow var(--transition), transform var(--transition-fast), color var(--transition);
-  box-shadow: var(--shadow-soft);
-}
-
-.btn-accent {
-  background: var(--secondary);
-  color: #0b0f19;
-}
-
-.btn-accent:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-  filter: brightness(1.03);
-}
-
-.btn-accent:active { transform: translateY(0); }
-
-.btn-accent:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--secondary) 35%, transparent);
-}
-
-/* Footer */
-.app-footer {
-  text-align: center;
-  padding: 18px 12px 24px;
-  color: var(--text-muted);
-}
-
-.footer-note { font-size: 12px; }
-
-/* Responsive behavior */
-@media (max-width: 520px) {
-  :root {
-    --cell-size: 92px;
-    --grid-gap: 10px;
+/* Responsive */
+@media (max-width: 900px) {
+  .double-view-card {
+    width: 426px;
+    grid-template-columns: var(--panel-w);
+    height: auto;
   }
-  .board-card { padding: 16px 14px 14px; }
+  .divider-vert { display: none; }
+  .calendar-panel + .calendar-panel { display: none; }
 }
 
-@media (max-width: 360px) {
-  :root {
-    --cell-size: 80px;
-    --grid-gap: 8px;
-  }
-  .scores { gap: 8px; padding: 4px 8px; }
-  .title { font-size: 24px; }
+@media (max-width: 480px) {
+  .screen { padding: 16px; }
+  .select-btn .text { font-size: 20px; line-height: 20px; letter-spacing: -0.2px; }
+  .dow { font-size: 16px; }
+  .day span { font-size: 16px; }
 }

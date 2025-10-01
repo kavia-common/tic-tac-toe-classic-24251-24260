@@ -3,60 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tic Tac Toe - Regular</title>
+  <title>Double-view calendar</title>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app" style="--screen-bg:#adafb3;">
-    <header class="app-header">
-      <h1 class="title" data-typo="typo_0">Tic Tac Toe</h1>
-      <p class="subtitle" data-typo="typo_2">Regular</p>
-    </header>
-
-    <main class="main">
-      <section class="board-card" aria-label="Tic Tac Toe Game">
-        <div class="status-bar">
-          <div class="status">
-            <span class="label" data-typo="typo_2">Turn</span>
-            <span id="currentPlayer" class="pill pill-primary" aria-live="polite" data-typo="typo_1">X</span>
-          </div>
-          <div class="scores" aria-label="Scores" role="group">
-            <div class="score">
-              <span class="label" data-typo="typo_2">X</span>
-              <span id="scoreX" class="score-value" aria-live="polite">0</span>
+  <div class="screen" style="--screen-bg:#adafb3;">
+    <main class="canvas">
+      <section class="double-view-card" role="group" aria-label="Double-view calendar">
+        <!-- Left calendar -->
+        <div class="calendar-panel" data-panel="left">
+          <div class="calendar-inner">
+            <!-- Header -->
+            <div class="calendar-header">
+              <button class="nav-btn prev" aria-label="Previous month">
+                <img src="../../assets/figmaimages/figma_image_38_5434_7_1908_7_1720_7_979.png" alt="" width="16" height="16" />
+              </button>
+              <div class="month-year">
+                <button class="month select-btn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="text">April</span>
+                  <img class="chev" src="../../assets/figmaimages/figma_image_38_5434_7_3262_15_2437_15_2397.png" alt="" width="8" height="8" />
+                </button>
+                <button class="year select-btn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="text">2021</span>
+                  <img class="chev" src="../../assets/figmaimages/figma_image_38_5434_7_3262_15_2437_15_2397.png" alt="" width="8" height="8" />
+                </button>
+              </div>
             </div>
-            <div class="divider" role="presentation"></div>
-            <div class="score">
-              <span class="label" data-typo="typo_2">O</span>
-              <span id="scoreO" class="score-value" aria-live="polite">0</span>
+            <!-- DOW -->
+            <div class="dow-row">
+              <div class="dow">Mo</div>
+              <div class="dow">Tu</div>
+              <div class="dow">We</div>
+              <div class="dow">Th</div>
+              <div class="dow">Fr</div>
+              <div class="dow">Sa</div>
+              <div class="dow">Su</div>
+            </div>
+            <!-- Weeks -->
+            <div class="weeks">
+              <!-- Week 1 -->
+              <div class="week">
+                <button class="day disabled"><span>29</span></button>
+                <button class="day disabled"><span>30</span></button>
+                <button class="day disabled"><span>31</span></button>
+                <button class="day"><span>1</span></button>
+                <button class="day"><span>2</span></button>
+                <button class="day"><span>3</span></button>
+                <button class="day"><span>4</span></button>
+              </div>
+              <!-- Week 2 -->
+              <div class="week">
+                <button class="day"><span>5</span></button>
+                <button class="day"><span>6</span></button>
+                <button class="day today"><span>7</span></button>
+                <button class="day"><span>8</span></button>
+                <button class="day"><span>9</span></button>
+                <button class="day"><span>10</span></button>
+                <button class="day"><span>11</span></button>
+              </div>
+              <!-- Week 3 -->
+              <div class="week">
+                <button class="day"><span>12</span></button>
+                <button class="day"><span>13</span></button>
+                <button class="day"><span>14</span></button>
+                <button class="day"><span>15</span></button>
+                <button class="day"><span>16</span></button>
+                <button class="day"><span>17</span></button>
+                <button class="day"><span>18</span></button>
+              </div>
+              <!-- Week 4 -->
+              <div class="week">
+                <button class="day"><span>19</span></button>
+                <button class="day"><span>20</span></button>
+                <button class="day"><span>21</span></button>
+                <button class="day"><span>22</span></button>
+                <button class="day"><span>23</span></button>
+                <button class="day"><span>24</span></button>
+                <button class="day"><span>25</span></button>
+              </div>
+              <!-- Week 5 -->
+              <div class="week">
+                <button class="day"><span>26</span></button>
+                <button class="day"><span>27</span></button>
+                <button class="day"><span>28</span></button>
+                <button class="day"><span>29</span></button>
+                <button class="day"><span>30</span></button>
+                <button class="day disabled"><span>1</span></button>
+                <button class="day disabled"><span>2</span></button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="board" role="grid" aria-label="3 by 3 grid">
-          <button class="cell" data-index="0" role="gridcell" aria-label="Cell 1"></button>
-          <button class="cell" data-index="1" role="gridcell" aria-label="Cell 2"></button>
-          <button class="cell" data-index="2" role="gridcell" aria-label="Cell 3"></button>
-          <button class="cell" data-index="3" role="gridcell" aria-label="Cell 4"></button>
-          <button class="cell" data-index="4" role="gridcell" aria-label="Cell 5"></button>
-          <button class="cell" data-index="5" role="gridcell" aria-label="Cell 6"></button>
-          <button class="cell" data-index="6" role="gridcell" aria-label="Cell 7"></button>
-          <button class="cell" data-index="7" role="gridcell" aria-label="Cell 8"></button>
-          <button class="cell" data-index="8" role="gridcell" aria-label="Cell 9"></button>
-        </div>
+        <!-- Divider -->
+        <div class="divider-vert" role="separator" aria-orientation="vertical"></div>
 
-        <div class="controls">
-          <button id="restartBtn" class="btn btn-accent" type="button" data-typo="typo_2">Restart</button>
+        <!-- Right calendar -->
+        <div class="calendar-panel" data-panel="right">
+          <div class="calendar-inner">
+            <!-- Header -->
+            <div class="calendar-header">
+              <div class="spacer"></div>
+              <div class="month-year">
+                <button class="month select-btn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="text">May</span>
+                  <img class="chev" src="../../assets/figmaimages/figma_image_38_5434_7_3262_15_2437_15_2397.png" alt="" width="8" height="8" />
+                </button>
+                <button class="year select-btn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="text">2021</span>
+                  <img class="chev" src="../../assets/figmaimages/figma_image_38_5434_7_3262_15_2437_15_2397.png" alt="" width="8" height="8" />
+                </button>
+              </div>
+              <button class="nav-btn next" aria-label="Next month">
+                <img src="../../assets/figmaimages/figma_image_38_5590_7_1946_7_1766_7_979.png" alt="" width="16" height="16" />
+              </button>
+            </div>
+            <!-- DOW -->
+            <div class="dow-row">
+              <div class="dow">Mo</div>
+              <div class="dow">Tu</div>
+              <div class="dow">We</div>
+              <div class="dow">Th</div>
+              <div class="dow">Fr</div>
+              <div class="dow">Sa</div>
+              <div class="dow">Su</div>
+            </div>
+            <!-- Weeks -->
+            <div class="weeks">
+              <!-- Week 1 -->
+              <div class="week">
+                <button class="day disabled"><span>29</span></button>
+                <button class="day disabled"><span>30</span></button>
+                <button class="day disabled"><span>31</span></button>
+                <button class="day disabled"><span>1</span></button>
+                <button class="day disabled"><span>2</span></button>
+                <button class="day"><span>1</span></button>
+                <button class="day"><span>2</span></button>
+              </div>
+              <!-- Week 2 -->
+              <div class="week">
+                <button class="day"><span>3</span></button>
+                <button class="day"><span>4</span></button>
+                <button class="day"><span>5</span></button>
+                <button class="day"><span>6</span></button>
+                <button class="day"><span>7</span></button>
+                <button class="day"><span>8</span></button>
+                <button class="day"><span>9</span></button>
+              </div>
+              <!-- Week 3 -->
+              <div class="week">
+                <button class="day"><span>10</span></button>
+                <button class="day"><span>11</span></button>
+                <button class="day"><span>12</span></button>
+                <button class="day"><span>13</span></button>
+                <button class="day"><span>14</span></button>
+                <button class="day"><span>15</span></button>
+                <button class="day"><span>16</span></button>
+              </div>
+              <!-- Week 4 -->
+              <div class="week">
+                <button class="day"><span>17</span></button>
+                <button class="day"><span>18</span></button>
+                <button class="day"><span>19</span></button>
+                <button class="day hovered"><span>20</span></button>
+                <button class="day"><span>21</span></button>
+                <button class="day"><span>22</span></button>
+                <button class="day"><span>23</span></button>
+              </div>
+              <!-- Week 5 -->
+              <div class="week">
+                <button class="day"><span>24</span></button>
+                <button class="day"><span>25</span></button>
+                <button class="day"><span>26</span></button>
+                <button class="day"><span>27</span></button>
+                <button class="day"><span>28</span></button>
+                <button class="day"><span>29</span></button>
+                <button class="day"><span>30</span></button>
+              </div>
+              <!-- Week 6 -->
+              <div class="week">
+                <button class="day"><span>31</span></button>
+                <button class="day disabled"><span>1</span></button>
+                <button class="day disabled"><span>2</span></button>
+                <button class="day disabled"><span>3</span></button>
+                <button class="day disabled"><span>4</span></button>
+                <button class="day disabled"><span>5</span></button>
+                <button class="day disabled"><span>6</span></button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    </main>
 
-    <footer class="app-footer">
-      <small class="footer-note" data-typo="typo_2">Ocean Professional • Blue & amber accents</small>
-    </footer>
+      <!-- Decorative hand overlay -->
+      <div class="hand-overlay" aria-hidden="true">
+        <img class="hand-bg" src="../../assets/figmaimages/figma_image_38_11393_38_11389.png" alt="" width="72" height="72" />
+        <img class="hand-icon" src="../../assets/figmaimages/figma_image_38_11393_38_11390_2_599.png" alt="" width="16" height="20" />
+      </div>
+    </main>
   </div>
 
   <script src="./app.js"></script>
