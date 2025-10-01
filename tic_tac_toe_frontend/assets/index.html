@@ -10,28 +10,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app">
+  <div class="app" style="--screen-bg:#adafb3;">
     <header class="app-header">
-      <h1 class="title">Tic Tac Toe</h1>
-      <p class="subtitle">Regular</p>
+      <h1 class="title" data-typo="typo_0">Tic Tac Toe</h1>
+      <p class="subtitle" data-typo="typo_2">Regular</p>
     </header>
 
     <main class="main">
       <section class="board-card" aria-label="Tic Tac Toe Game">
         <div class="status-bar">
           <div class="status">
-            <span class="label">Turn</span>
-            <span id="currentPlayer" class="pill pill-primary" aria-live="polite">X</span>
+            <span class="label" data-typo="typo_2">Turn</span>
+            <span id="currentPlayer" class="pill pill-primary" aria-live="polite" data-typo="typo_1">X</span>
           </div>
-          <div class="scores">
+          <div class="scores" aria-label="Scores" role="group">
             <div class="score">
-              <span class="label">X</span>
-              <span id="scoreX" class="score-value">0</span>
+              <span class="label" data-typo="typo_2">X</span>
+              <span id="scoreX" class="score-value" aria-live="polite">0</span>
             </div>
             <div class="divider" role="presentation"></div>
             <div class="score">
-              <span class="label">O</span>
-              <span id="scoreO" class="score-value">0</span>
+              <span class="label" data-typo="typo_2">O</span>
+              <span id="scoreO" class="score-value" aria-live="polite">0</span>
             </div>
           </div>
         </div>
@@ -49,13 +49,13 @@
         </div>
 
         <div class="controls">
-          <button id="restartBtn" class="btn btn-accent" type="button">Restart</button>
+          <button id="restartBtn" class="btn btn-accent" type="button" data-typo="typo_2">Restart</button>
         </div>
       </section>
     </main>
 
     <footer class="app-footer">
-      <small class="footer-note">Ocean Professional • Blue & amber accents</small>
+      <small class="footer-note" data-typo="typo_2">Ocean Professional • Blue & amber accents</small>
     </footer>
   </div>
 

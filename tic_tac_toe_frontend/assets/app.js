@@ -17,8 +17,9 @@
   function clearBoardUI() {
     cells.forEach(c => {
       c.textContent = '';
-      // remove any winner highlight if added later
       c.classList.remove('win');
+      c.disabled = false;
+      c.setAttribute('aria-disabled', 'false');
     });
   }
 
@@ -26,6 +27,8 @@
     board = Array(9).fill('');
     clearBoardUI();
     setTurn('X');
+    // return focus to first cell for accessibility
+    cells[0]?.focus();
   }
 
   function inBounds(idx) {
@@ -53,10 +56,8 @@
     return true;
   }
 
-  // Placeholder: check winner logic (to be implemented by game logic)
   // Returns 'X', 'O', 'draw', or null
   function checkGameState() {
-    // Winning lines
     const lines = [
       [0,1,2],[3,4,5],[6,7,8],
       [0,3,6],[1,4,7],[2,5,8],
@@ -64,13 +65,17 @@
     ];
     for (const [a,b,c] of lines) {
       if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        // simple highlight
         [a,b,c].forEach(i => cells[i].classList.add('win'));
         return board[a];
       }
     }
     if (board.every(x => x)) return 'draw';
     return null;
+  }
+
+  function announce(message) {
+    // Use currentPlayer pill as a polite live region to announce outcome
+    currentPlayerEl.textContent = message;
   }
 
   function updateScore(winner) {
@@ -90,19 +95,16 @@
       return; // already marked
     }
 
-    // Evaluate state
     const state = checkGameState();
     if (state === 'X' || state === 'O') {
       updateScore(state);
-      // brief pulse on status pill
       currentPlayerEl.classList.add('pill-primary');
       setTimeout(() => currentPlayerEl.classList.remove('pill-primary'), 450);
-      // Freeze further moves until restart
-      cells.forEach(c => c.disabled = true);
+      announce(`${state} wins`);
+      cells.forEach(c => { c.disabled = true; c.setAttribute('aria-disabled', 'true'); });
       return;
     } else if (state === 'draw') {
-      // subtle indication of draw
-      currentPlayerEl.textContent = '—';
+      announce('Draw');
       return;
     }
 
@@ -111,7 +113,7 @@
   }
 
   function enableCells() {
-    cells.forEach(c => c.disabled = false);
+    cells.forEach(c => { c.disabled = false; c.setAttribute('aria-disabled', 'false'); });
   }
 
   // Bind events
